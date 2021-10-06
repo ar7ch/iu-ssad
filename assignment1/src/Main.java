@@ -158,7 +158,7 @@ class AnalysisSystem {
             for (int e = 0; e < words.length; e++) {
                 Keyword word = KWD.getKeyword(words[e]);
                 if (word != null) {
-                    count++;
+                    count+=(1+c.likes);
                     value += (word.opinion.ordinal() - 1)*(1+c.likes);
                 }
             }
