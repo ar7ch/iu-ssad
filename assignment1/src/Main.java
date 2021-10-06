@@ -4,19 +4,23 @@ import java.util.Date;
 import java.util.UUID;
 
 
-
 enum Opinion {
-    Good,
-    Bad,
     Worst,
+    Bad,
+    Good,
 }
 
 class Keyword {
     public String word;
     public Opinion opinion;
+
+    public Keyword(String word, Opinion opinion) {
+        this.word = word;
+        this.opinion = opinion;
+    }
 }
 
-class TextEntity {
+abstract class TextEntity {
     public UUID id;
     public String text;
     public Date date;
@@ -99,8 +103,8 @@ abstract class AbstractUser {
         return new Post(text, this);
     }
 
-    public createComment(String text, Post post) {
-        post.comments.add(new Comment(text, author));
+    public void createComment(String text, Post post) {
+        post.comments.add(new Comment(text, this));
     }
 
     public Post getPost(UUID id_post) {
@@ -128,15 +132,15 @@ class Admin extends AbstractUser {
     }
 }
 
-class static AnalysisSystem {
+class AnalysisSystem {
     private static AnalysisSystem systemInstance;
     private KeywordDatabase KWD;
-    private AnalysisSystem(KeywordDatabase KWD)
-    {
+
+    private AnalysisSystem(KeywordDatabase KWD) {
         this.KWD = KWD;
     }
-    public static getConnection(KeywordDatabase KWD)
-    {
+
+    public static AnalysisSystem getConnection(KeywordDatabase KWD) {
         if (systemInstance == null)
             systemInstance = new AnalysisSystem(KWD);
 
@@ -146,30 +150,66 @@ class static AnalysisSystem {
     public Opinion evaluatePost(Post post) {
         int value = 0;
         int count = 0;
-        for (int i = 0; i < post.comments.length; i++) {
-            String s = post.comments[i].text;
+        for (int i = 0; i < post.comments.size(); i++) {
+            String s = post.comments.get(i).text;
             String[] words = s.split("\\W+");
             for (int e = 0; e < words.length; e++) {
-                var word = KWD.getKeyword(word);
-                if(word != null)
-                {
+                Keyword word = KWD.getKeyword(words[e]);
+                if (word != null) {
                     count++;
-                    value += word.opinion - 1;
+                    value += word.opinion.ordinal() - 1;
                 }
             }
         }
-        float valuef = (float)value/count;
-        if(valuef < -0.5) return Opinion.Worst;
-        if(valuef < 0.5) return Opinion.Bad;
-        if(valuef >= 0.5) return Opinion.Good;
+        float valuef = (float) value / count;
+        if (valuef < -0.5) return Opinion.Worst;
+        if (valuef < 0.5) return Opinion.Bad;
+        if (valuef >= 0.5) return Opinion.Good;
 
         return null;
     }
 }
 
 public class Main {
+    static String EVALUATION = "Post %s is %s";
+
+    static void FormatEvaluation(AnalysisSystem system, Post post) {
+        System.out.println(String.format(Main.EVALUATION, "\"" + post.text + "\"", system.evaluatePost(post)));
+    }
 
     public static void main(String[] args) {
+        ConcreteKeywordDatabase kwDB = new ConcreteKeywordDatabase();
+
+        kwDB.addKeyword(new Keyword("good", Opinion.Good));
+        kwDB.addKeyword(new Keyword("cool", Opinion.Good));
+        kwDB.addKeyword(new Keyword("valuable", Opinion.Good));
+
+        kwDB.addKeyword(new Keyword("bad", Opinion.Bad));
+        kwDB.addKeyword(new Keyword("sad", Opinion.Bad));
+        kwDB.addKeyword(new Keyword("poor", Opinion.Bad));
+
+        kwDB.addKeyword(new Keyword("worst", Opinion.Worst));
+        kwDB.addKeyword(new Keyword("awful", Opinion.Worst));
+        kwDB.addKeyword(new Keyword("disgusting", Opinion.Worst));
+
+        AnalysisSystem system = AnalysisSystem.getConnection(kwDB);
+
+        User u = new User("John", "qwerty", "Life's good", "somelink.com");
+        User u2 = new User("Kate", "123123", "Wazzup?", "somelink2.com");
+        User u3 = new User("Sasha", "98765", "", "somelink3.com");
+        User u4 = new User("Troll", "5rr123", "lmao", "somelink4.com");
+
+        Post post = u.createPost("Ma dudes, I think that the first spider-man movie was great!");
+
+        u2.createComment("Although the graphics was poor, the plot is cool :)", post);
+        u2.createComment("BTW, hav u seen da 2nd chapter?", post);
+        u3.createComment("Man, the movie is really cool, just watched it on last weekends", post);
+        u3.createComment("The actors play good and the message behind is valuable", post);
+        u4.createComment("Nah, I personally think all superhero movies are bad :(", post);
+
+        Main.FormatEvaluation(system, post);
+
+
     }
 
 }
