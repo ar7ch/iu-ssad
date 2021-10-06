@@ -1,4 +1,3 @@
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -54,30 +53,22 @@ class Post extends TextEntity {
 
 }
 
-interface KeywordDatabase {
-    public KeywordDatabase getKDBConnection();
+class KeywordDatabase {
 
-    public void addKeyword(Keyword newKeyword);
+    static private final ArrayList<Keyword> keywords = new ArrayList<Keyword>();
+    static private KeywordDatabase dbInstance;
 
-    public Keyword getKeyword(String word);
-}
-
-class ConcreteKeywordDatabase implements KeywordDatabase {
-
-    private final ArrayList<Keyword> keywords = new ArrayList<Keyword>();
-    private KeywordDatabase dbInstance;
-
-    @Override
-    public KeywordDatabase getKDBConnection() {
-        return null;
+    private KeywordDatabase(){};
+    public static KeywordDatabase getKDBConnection() {
+        if (dbInstance==null)
+            dbInstance = new KeywordDatabase();
+        return dbInstance;
     }
 
-    @Override
     public void addKeyword(Keyword newKeyword) {
         this.keywords.add(newKeyword);
     }
 
-    @Override
     public Keyword getKeyword(String word) {
         for (Keyword keyword : this.keywords) {
             if (keyword.word.equals(word)) {
@@ -126,30 +117,29 @@ class User extends AbstractUser {
 }
 
 class Admin extends AbstractUser {
-    public KeywordDatabase db;
 
     public Admin(String username, String password) {
         super(username, String.valueOf(password.hashCode()));
-        this.db = new ConcreteKeywordDatabase();
     }
+    public void addKeyword(Keyword keyword){
+        KeywordDatabase.getKDBConnection().addKeyword(keyword);
+    }
+
 }
 
 class AnalysisSystem {
     private static AnalysisSystem systemInstance;
-    private KeywordDatabase KWD;
+    private AnalysisSystem() {}
 
-    private AnalysisSystem(KeywordDatabase KWD) {
-        this.KWD = KWD;
-    }
-
-    public static AnalysisSystem getConnection(KeywordDatabase KWD) {
+    public static AnalysisSystem getInstance() {
         if (systemInstance == null)
-            systemInstance = new AnalysisSystem(KWD);
+            systemInstance = new AnalysisSystem();
 
         return systemInstance;
     }
 
     public Opinion evaluatePost(Post post) {
+        KeywordDatabase KWD = KeywordDatabase.getKDBConnection();
         int value = 0;
         int count = 0;
         for (Comment c: post.comments) {
@@ -180,21 +170,22 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        ConcreteKeywordDatabase kwDB = new ConcreteKeywordDatabase();
 
-        kwDB.addKeyword(new Keyword("good", Opinion.Good));
-        kwDB.addKeyword(new Keyword("cool", Opinion.Good));
-        kwDB.addKeyword(new Keyword("valuable", Opinion.Good));
+        Admin admin = new Admin("admin","admin");
 
-        kwDB.addKeyword(new Keyword("bad", Opinion.Bad));
-        kwDB.addKeyword(new Keyword("sad", Opinion.Bad));
-        kwDB.addKeyword(new Keyword("poor", Opinion.Bad));
+        admin.addKeyword(new Keyword("good", Opinion.Good));
+        admin.addKeyword(new Keyword("cool", Opinion.Good));
+        admin.addKeyword(new Keyword("valuable", Opinion.Good));
 
-        kwDB.addKeyword(new Keyword("worst", Opinion.Worst));
-        kwDB.addKeyword(new Keyword("awful", Opinion.Worst));
-        kwDB.addKeyword(new Keyword("disgusting", Opinion.Worst));
+        admin.addKeyword(new Keyword("bad", Opinion.Bad));
+        admin.addKeyword(new Keyword("sad", Opinion.Bad));
+        admin.addKeyword(new Keyword("poor", Opinion.Bad));
 
-        AnalysisSystem system = AnalysisSystem.getConnection(kwDB);
+        admin.addKeyword(new Keyword("worst", Opinion.Worst));
+        admin.addKeyword(new Keyword("awful", Opinion.Worst));
+        admin.addKeyword(new Keyword("disgusting", Opinion.Worst));
+
+        AnalysisSystem system = AnalysisSystem.getInstance();
 
         User u = new User("John", "qwerty", "Life's good", "somelink.com");
         User u2 = new User("Kate", "123123", "Wazzup?", "somelink2.com");
