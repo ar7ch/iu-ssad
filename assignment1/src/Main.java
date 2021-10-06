@@ -103,8 +103,10 @@ abstract class AbstractUser {
         return new Post(text, this);
     }
 
-    public void createComment(String text, Post post) {
-        post.comments.add(new Comment(text, this));
+    public Comment createComment(String text, Post post) {
+        Comment comment = new Comment(text, this);
+        post.comments.add(comment);
+        return comment;
     }
 
     public Post getPost(UUID id_post) {
@@ -150,14 +152,14 @@ class AnalysisSystem {
     public Opinion evaluatePost(Post post) {
         int value = 0;
         int count = 0;
-        for (int i = 0; i < post.comments.size(); i++) {
-            String s = post.comments.get(i).text;
+        for (Comment c: post.comments) {
+            String s = c.text;
             String[] words = s.split("\\W+");
             for (int e = 0; e < words.length; e++) {
                 Keyword word = KWD.getKeyword(words[e]);
                 if (word != null) {
                     count++;
-                    value += word.opinion.ordinal() - 1;
+                    value += (word.opinion.ordinal() - 1)*(1+c.likes);
                 }
             }
         }
@@ -201,15 +203,17 @@ public class Main {
 
         Post post = u.createPost("Ma dudes, I think that the first spider-man movie was great!");
 
-        u2.createComment("Although the graphics was poor, the plot is cool :)", post);
-        u2.createComment("BTW, hav u seen da 2nd chapter?", post);
-        u3.createComment("Man, the movie is really cool, just watched it on last weekends", post);
-        u3.createComment("The actors play good and the message behind is valuable", post);
-        u4.createComment("Nah, I personally think all superhero movies are bad :(", post);
+        Comment c = u2.createComment("Although the graphics was poor, the plot is cool :)", post);
+        Comment c2 = u2.createComment("BTW, hav u seen da 2nd chapter?", post);
+        Comment c3 = u3.createComment("Man, the movie is really cool, just watched it on last weekends", post);
+        Comment c4 = u3.createComment("The actors play good and the message behind is valuable", post);
+        Comment c5 =u4.createComment("Nah, I personally think all superhero movies are awful :(", post);
+
+        c5.likes = 2;
+        c4.likes = 7;
+
 
         Main.FormatEvaluation(system, post);
-
-
     }
 
 }
