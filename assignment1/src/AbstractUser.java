@@ -35,6 +35,7 @@ class User extends AbstractUser {
         this.status = status;
         this.profilePictureLink = profilePictureLink;
     }
+
 }
 
 class Admin extends AbstractUser {
