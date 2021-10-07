@@ -4,7 +4,7 @@
 ## ***To make it we use singleton OOP pattern.***
 ---
 # Why do we use singleton?
-Singleton allows us to have exactly one instance of the database in a system, enabling data consistency across that system.
+Singleton allows us to have exactly one instance of the database, enabling data consistency across that system.
 It is necessary for providing the feature of calculating the rank of some posts. Since the Keywords database is uniform, the rank will be the same for the whole site. 
 ## How we implemented singleton? 
 
