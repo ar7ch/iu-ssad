@@ -1,6 +1,6 @@
 # In our project, we have implemented the system for opinion mining in social networks. 
 
-#### The main feature of our project is the post ranking system. The idea is any user can create or comment a post. This post will be ranked by the system when the next user will read it. The ranking works in the way: user comment the post, the Analysis System looks is any keywords in the text, if so, then it calculates the rank of the post and saves the new value. The project has a single keyword database, which allows the Analysis System to make uniform calculations of any post.
+#### The main feature of our project is the post ranking system. The idea is that any user can create or comment a post. The posts are evaluated by the system. The ranking works in this way: a user creates a post that is their opinion on some topic, some users comment the post that is their reaction on the opinion, the Analysis System looks for  keywords in the text, if there any, it calculates the rank of the post. The project has a single keyword database, which allows the Analysis System to make uniform calculations of any post.
 ## ***To make it we use singleton OOP pattern.***
 ---![photo_2021-10-07_20-31-13](https://user-images.githubusercontent.com/70723894/136434964-6f92c8aa-c557-42a4-9975-b233a486bd21.jpg)
 
