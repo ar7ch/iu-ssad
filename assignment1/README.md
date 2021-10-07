@@ -13,7 +13,7 @@ The project has a single keyword database, which allows the Analysis System to m
 
 # Why do we use singleton?
 Singleton allows us to have exactly one instance of the database, enabling data consistency across the system.
-It is necessary for providing the feature of calculating the rank of some posts. Since the Keywords database is uniform, the rank will be the same for the whole site. 
+It is necessary for providing the adequate feature of posts evaluation. Since the Keywords database is uniform, the process of evaluation will be the same for the whole social networking site. 
 
 ## How we implemented singleton? 
 
