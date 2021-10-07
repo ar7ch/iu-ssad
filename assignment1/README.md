@@ -35,7 +35,7 @@ In the KeywordDataBase the constructor is private and is called only by the publ
 ### Abstract User
 Abstract user is a base class for other particular types of users.
 ### User
-A class that represents an ordinary user of a Social Network Site who can post his views on some subject, read and comment on any posts they liked or disliked.
+A class that represents an ordinary user of a social networking site who can post his views on some subject, read and comment on any posts they liked or disliked.
 ### Admin
 An entity that has the same methods as the User, but also they can add new keywords in the keyword database.
 * # Text-based classes:
