@@ -1,14 +1,14 @@
 # In our project, we have implemented the system for opinion mining in social networks. 
 
-#### The main feature of our project is the post ranking system. The idea is that any user can create or comment on a post. The posts are evaluated by the system. 
+#### The main feature of our project is the post evaluation system. 
 
-The ranking works in this way: 
+The evaluation works in this way: 
 1. A user creates a post that is their opinion on some topic.
 2. Some users comment on the post that is their reaction to the opinion.
 3. Likes on comments are multipliers of reactions, when one likes a comment it means they agree with that reaction.
 4. Basing on the keywords in the comments, the analysis system evaluates whether the post topic is Good, Bad, or Worst.
 The project has a single keyword database, which allows the Analysis System to make uniform calculations of any post.
-## ***To make it we use singleton OOP pattern.***
+## ***To make it we use the singleton OOP pattern.***
 ![assignment1_usecase drawio](https://user-images.githubusercontent.com/37394070/136443806-338b4af8-246a-4591-907f-7eca2630586a.png)
 
 # Why do we use singleton?
@@ -42,15 +42,15 @@ An entity that has the same methods as the User, but also they can add new keywo
 ### Text Entity
 This is a data class that acts as a base for other particular text entities.
 ### Post
-Represents opinion of some user on some topic. Post has a list of comments attached to it.
+Represents opinion of some user on some topic. A post has a list of comments attached to it.
 ### Comment 
 Represents reaction of some user on someone's opinion (post). Comment has a counter of likes.
 * # DataBase parts:
 ### ConcreteKeywordDataBase
 A class that holds keywords and allows to manage them. Represented as a singleton in our system.
 ### Keyword 
-A data class that describes a single keyword and its posivity weight. The weight is chosen from the enumeration (Worst, Bad, or Good).
+A data class that describes a single keyword and its positivity weight. The weight is chosen from the enumeration Opinion : (Worst, Bad, or Good).
 * # AnalysisSystem
 
-The class provides the main feature - evaluation of a post by the keywords in comments. The Analysis system is singleton.  
+The class provides the main feature - evaluation of a post by keywords in comments. The Analysis system is singleton to provide users with one and only adequate evaluation.  
 
