@@ -3,6 +3,7 @@ public class Main {
     static void FormatEvaluation(Post post){ //Auxiliary method to format and print the post evaluation
         System.out.printf("Post of %s: \"%s\" evaluated as %s", post.author.username, post.text,
                 //Here we calculate whether a post is Good, Bad or Worst, basing on keywords in reactions (comments) to the post
+                //The AnalysisSystem and the KeywordDatabase it uses are follow singleton pattern
                 AnalysisSystem.getConnection().evaluatePost(post));
     }
 
