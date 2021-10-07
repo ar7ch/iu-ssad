@@ -1,8 +1,16 @@
 # In our project, we have implemented the system for opinion mining in social networks. 
 
-#### The main feature of our project is the post ranking system. The idea is that any user can create or comment on a post. The posts are evaluated by the system. The ranking works in this way: a user creates a post that is their opinion on some topic. Some users comment on the post that is their reaction to the opinion. Likes on comments are multipliers of reactions, when one likes a comment it means they agree with that reaction. Basing on the keywords in the comments, the analysis system evaluates whether the post topic is Good, Bad, or Worst. The project has a single keyword database, which allows the Analysis System to make uniform calculations of any post.
+#### The main feature of our project is the post ranking system. The idea is that any user can create or comment on a post. The posts are evaluated by the system. 
+
+The ranking works in this way: 
+1. A user creates a post that is their opinion on some topic.
+2. Some users comment on the post that is their reaction to the opinion.
+3. Likes on comments are multipliers of reactions, when one likes a comment it means they agree with that reaction.
+4. Basing on the keywords in the comments, the analysis system evaluates whether the post topic is Good, Bad, or Worst.
+The project has a single keyword database, which allows the Analysis System to make uniform calculations of any post.
 ## ***To make it we use singleton OOP pattern.***
----![photo_2021-10-07_20-31-13](https://user-images.githubusercontent.com/70723894/136434964-6f92c8aa-c557-42a4-9975-b233a486bd21.jpg)
+![photo_2021-10-07_21-39-55](https://user-images.githubusercontent.com/37394070/136443467-0a445df3-94c0-4d27-8300-c51f44838f63.jpg)
+
 
 # Why do we use singleton?
 Singleton allows us to have exactly one instance of the database, enabling data consistency across that system.
