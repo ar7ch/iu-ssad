@@ -20,7 +20,7 @@ public class Main {
         admin.addKeywordWrapper(new Keyword("awful", Opinion.Worst));
         admin.addKeywordWrapper(new Keyword("disgusting", Opinion.Worst));
 
-        AnalysisSystem system = AnalysisSystem.getInstance();
+        AnalysisSystem system = AnalysisSystem.getConnection();
 
         User u = new User("John", "qwerty", "Life's good", "somelink.com");
         User u2 = new User("Kate", "123123", "Wazzup?", "somelink2.com");

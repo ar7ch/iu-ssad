@@ -43,8 +43,8 @@ class Admin extends AbstractUser {
         super(username, String.valueOf(password.hashCode()));
     }
 
-    public void addKeywordWrapper(Keyword keyword) {
-        KeywordDatabase.getKDBConnection().addKeyword(keyword);
+    public void addKeywordWrapper(Keyword newKeyword) {
+        KeywordDatabase.getKDBConnection().addKeyword(newKeyword);
     }
 
 }

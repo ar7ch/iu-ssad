@@ -4,7 +4,7 @@ public class AnalysisSystem {
     private AnalysisSystem() {
     }
 
-    public static AnalysisSystem getInstance() {
+    public static AnalysisSystem getConnection() {
         if (systemInstance == null)
             systemInstance = new AnalysisSystem();
 
