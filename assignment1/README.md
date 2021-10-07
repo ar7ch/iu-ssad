@@ -9,8 +9,7 @@ The ranking works in this way:
 4. Basing on the keywords in the comments, the analysis system evaluates whether the post topic is Good, Bad, or Worst.
 The project has a single keyword database, which allows the Analysis System to make uniform calculations of any post.
 ## ***To make it we use singleton OOP pattern.***
-![photo_2021-10-07_21-39-55](https://user-images.githubusercontent.com/37394070/136443467-0a445df3-94c0-4d27-8300-c51f44838f63.jpg)
-
+![assignment1_usecase drawio](https://user-images.githubusercontent.com/37394070/136443806-338b4af8-246a-4591-907f-7eca2630586a.png)
 
 # Why do we use singleton?
 Singleton allows us to have exactly one instance of the database, enabling data consistency across that system.
