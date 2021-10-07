@@ -1,4 +1,4 @@
-# In our project, we have implemented the system for opinion mining in social networks. 
+# In our project, we  have implemented some parts of the system for opinion mining in social networking sites. 
 
 #### The main feature of our project is the post evaluation system. 
 
