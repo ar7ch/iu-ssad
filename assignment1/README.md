@@ -12,11 +12,12 @@ The project has a single keyword database, which allows the Analysis System to m
 ![assignment1_usecase drawio](https://user-images.githubusercontent.com/37394070/136443806-338b4af8-246a-4591-907f-7eca2630586a.png)
 
 # Why do we use singleton?
-Singleton allows us to have exactly one instance of the database, enabling data consistency across that system.
+Singleton allows us to have exactly one instance of the database, enabling data consistency across the system.
 It is necessary for providing the feature of calculating the rank of some posts. Since the Keywords database is uniform, the rank will be the same for the whole site. 
+
 ## How we implemented singleton? 
 
-In the ConcreteKeywordDataBase the constructor of DataBase is private and is calling only by the public getKDBConnection() method. This method checks if the DataBase instance exists, if so getKDBConnection() returns a pointer of the instance, in another case, calls the DataBase constructor. In this way, the uniqueness of the singleton entity is supported.
+In the KeywordDataBase the constructor is private and is called only by the public getKDBConnection() method. This method checks if the dbInstance exists, if so getKDBConnection() returns a reference to the instance, otherwise calls the constructor. In this way, the uniqueness of the singleton entity is supported.
 
 
     private KeywordDatabase(){};
@@ -32,24 +33,24 @@ In the ConcreteKeywordDataBase the constructor of DataBase is private and is cal
 # The main entities we have:
 * # Actors:
 ### Abstract User
-Abstract user is a base class of other particular types of users.
+Abstract user is a base class for other particular types of users.
 ### User
-A class that represents an ordinary user who can post his views on some subject, read and comment on any posts they liked or disliked.
+A class that represents an ordinary user of a Social Network Site who can post his views on some subject, read and comment on any posts they liked or disliked.
 ### Admin
-An entity that has the same methods as the User, but also they can put new keywords in that database.
+An entity that has the same methods as the User, but also they can add new keywords in the keyword database.
 * # Text-based classes:
 ### Text Entity
 This is a data class that acts as a base for other particular text entities.
 ### Post
-Text entity that has a list of comments attached to it.
+Represents opinion of some user on some topic. Post has a list of comments attached to it.
 ### Comment 
-Text entity that represents some user's opinion.
+Represents reaction of some user on someone's opinion (post). Comment has a counter of likes.
 * # DataBase parts:
 ### ConcreteKeywordDataBase
 A class that holds keywords and allows to manage them. Represented as a singleton in our system.
 ### Keyword 
-A data class that describes a single keyword and its respective opinions.
+A data class that describes a single keyword and its posivity weight. The weight is chosen from the enumeration (Worst, Bad, or Good).
 * # AnalysisSystem
 
-The class allows calculating the total post positivity score. Represented as a singleton. 
+The class provides the main feature - evaluation of a post by the keywords in comments. The Analysis system is singleton.  
 
