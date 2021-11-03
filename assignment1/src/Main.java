@@ -47,6 +47,9 @@ public class Main {
 
         //Print evaluation
         Main.FormatEvaluation(post);
+        HTMLAnalysisAdapter HTMLAnalysis = new HTMLAnalysisAdapter();
+        HTMLAnalysis.loadData(new Pair<Post,Opinion>(post,AnalysisSystem.getConnection().evaluatePost(post)));
+        HTMLAnalysis.createHTML();
     }
 
 }
