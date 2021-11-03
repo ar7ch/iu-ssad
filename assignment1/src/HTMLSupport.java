@@ -28,7 +28,7 @@ class HTMLAnalysisAdapter implements HTMLSupport<Pair<Post,Opinion>> {
         var html = "";
         FileReader fileReader = null;
         try {
-            html = Files.readString(Path.of("src/Resources/index.html"));
+            html = "<!DOCTYPE html><html lang=\"en\"><head> <meta name=\"description\" content=\"Report\" /> <meta charset=\"utf-8\"> <title>Report</title></head><body><div class=\"container\"> <pre id=0></pre></div><style></style></body></html>";
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,7 +57,8 @@ class HTMLAnalysisAdapter implements HTMLSupport<Pair<Post,Opinion>> {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        openWebpage("file:///"+System.getProperty("user.dir")+"/report.html");
+        try{openWebpage("file:///"+System.getProperty("user.dir")+"/report.html");}
+        catch (Exception exp){}
         return;
     }
     private static void openWebpage(String urlString) {
