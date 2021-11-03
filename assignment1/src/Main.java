@@ -35,11 +35,18 @@ public class Main {
         Post post = u.createPost("Ma dudes, I think that the first spider-man movie was great!");
 
         //Some comments represent reaction on some opinion (post). Comments may contain keywords
-        u2.createComment("Although the graphics was poor, the plot is cool :)", post);
-        u2.createComment("BTW, hav u seen da 2nd chapter?", post);
-        u3.createComment("Man, the movie is really cool, just watched it on the last weekends", post);
+        Comment c1 = u2.createComment("Although the graphics was poor, the plot is cool :)", post);
+        Comment c2 = u2.createComment("BTW, hav u seen da 2nd chapter?", post);
+        Comment c3 = u3.createComment("Man, the movie is really cool, just watched it on the last weekends", post);
         Comment c4 = u3.createComment("The actors play good and the message behind is valuable", post);
         Comment c5 = u4.createComment("Nah, I personally think all superhero movies are awful :(", post);
+
+        //Simulate different times for the comments
+        c1.date.setTime(post.date.getTime()+(10 * 60 * 1000));
+        c2.date.setTime(post.date.getTime()+(21 * 60 * 1000));
+        c3.date.setTime(post.date.getTime()+(42 * 60 * 1000));
+        c4.date.setTime(post.date.getTime()+(7123 * 60 * 1000));
+        c5.date.setTime(post.date.getTime()+(8123 * 60 * 1000));
 
         //Likes act like multiplier of reactions. When one likes a comment it means they agree with that reaction
         c5.likes = 2;
