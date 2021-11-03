@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -57,17 +58,21 @@ class HTMLAnalysisAdapter implements HTMLSupport<Pair<Post,Opinion>> {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        try{openWebpage("file:///"+System.getProperty("user.dir")+"/report.html");}
-        catch (Exception exp){}
-        return;
-    }
-    private static void openWebpage(String urlString) {
+        String pathString = System.getProperty("user.dir")+"/report.html";
+        System.out.println(String.format("Generated HTML report at %s", pathString));
         try {
-            Desktop.getDesktop().browse(new URL(urlString).toURI());
-        } catch (Exception e) {
-            e.printStackTrace();
+            openWebpage("file:///"+pathString);
+        }
+        catch (Exception e) {
+            System.out.println("Your system doesn't support browser integration, please open report manually");
         }
     }
+
+    private static void openWebpage(String urlString) throws Exception {
+        Desktop.getDesktop().browse(new URL(urlString).toURI());
+    }
+
+
     @Override
     public void loadData(Pair<Post, Opinion> data) {
         dataCollection.add(data);
