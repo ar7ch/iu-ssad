@@ -1,10 +1,10 @@
 public class Main {
 
-    static void FormatEvaluation(Post post){ //Auxiliary method to format and print the post evaluation
-        System.out.println(String.format("Post of %s: \"%s\" evaluated as %s", post.author.username, post.text,
+    static void FormatEvaluation(Post post) { //Auxiliary method to format and print the post evaluation
+        System.out.printf("Post of %s: \"%s\" evaluated as %s%n", post.author.username, post.text,
                 //Here we calculate whether a post is Good, Bad or Worst, basing on keywords in reactions (comments) to the post
                 //The AnalysisSystem and the KeywordDatabase it uses are follow singleton pattern
-                AnalysisSystem.getConnection().evaluatePost(post)));
+                AnalysisSystem.getConnection().evaluatePost(post));
     }
 
     public static void main(String[] args) {
@@ -42,20 +42,20 @@ public class Main {
         Comment c5 = u4.createComment("Nah, I personally think all superhero movies are awful :(", post);
 
         //Simulate different times for the comments
-        c1.date.setTime(post.date.getTime()+(10 * 60 * 1000));
-        c2.date.setTime(post.date.getTime()+(21 * 60 * 1000));
-        c3.date.setTime(post.date.getTime()+(42 * 60 * 1000));
-        c4.date.setTime(post.date.getTime()+(7123 * 60 * 1000));
-        c5.date.setTime(post.date.getTime()+(8123 * 60 * 1000));
+        c1.date.setTime(post.date.getTime() + (10 * 60 * 1000));
+        c2.date.setTime(post.date.getTime() + (21 * 60 * 1000));
+        c3.date.setTime(post.date.getTime() + (42 * 60 * 1000));
+        c4.date.setTime(post.date.getTime() + (7123 * 60 * 1000));
+        c5.date.setTime(post.date.getTime() + (8123 * 60 * 1000));
 
         //Likes act like multiplier of reactions. When one likes a comment it means they agree with that reaction
         c5.likes = 2;
         c4.likes = 7;
 
-        //Print evaluation
+        //Print the evaluation to HTML file
         Main.FormatEvaluation(post);
         HTMLAnalysisAdapter HTMLAnalysis = new HTMLAnalysisAdapter();
-        HTMLAnalysis.loadData(new Pair<Post,Opinion>(post,AnalysisSystem.getConnection().evaluatePost(post)));
+        HTMLAnalysis.loadData(new Pair<Post, Opinion>(post, AnalysisSystem.getConnection().evaluatePost(post)));
         HTMLAnalysis.createHTML();
     }
 
