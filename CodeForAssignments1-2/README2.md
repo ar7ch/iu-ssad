@@ -5,7 +5,7 @@ As it was before, the evaluation works in the following way:
 
 1.  A user creates a post that is their opinion on some topic.
 2.  Some users comment on the post that is their reaction to the opinion.
-3.  Likes on comments are multipliers of reactions, when one likes a comment it means they agree with that reaction.
+3.  Likes on comments are multipliers of reactions. When one likes a comment, it means they agree with that reaction.
 4.  Based on the keywords in the comments, the analysis system evaluates whether the post topic is Good, Bad, or Worst. The project has a single keyword database, which allows the Analysis System to make uniform calculations of any post.
 5.  From now on, the evaluations can be seen in a web browser.
 
@@ -29,7 +29,7 @@ Hence, we decided to use **the Adapter pattern** that wraps up our system for th
 ![assignment2UML](https://user-images.githubusercontent.com/37394070/140531284-c97d1c79-52a0-483c-b600-a953770ffdde.png)
 
 
-New entities are grayed out. The full class diagram is attached in the submission in .png format.
+New entities are grayed out. The full class diagram is attached to the submission in .png format.
 
 HTMLAnalysisAdapter loads a Pair that has instances of Post and Opinion evaluated by our system. Then adapter formats the data to the format readable by a Web browser.
 
@@ -49,7 +49,7 @@ HTMLAnalysisAdapter loads a Pair that has instances of Post and Opinion evaluate
 
 ## Code
 
-Below is the most interesting method of the adapter. The method accepts some data, converts it to the HTML format then passes it to a Web Browser.
+Below is the most interesting method of the adapter. The code accepts some data, converts it to the HTML format then passes it to a Web Browser.
 
 ```java
 public void createHTML() {
