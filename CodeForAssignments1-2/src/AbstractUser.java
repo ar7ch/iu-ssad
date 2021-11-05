@@ -47,5 +47,10 @@ class Admin extends AbstractUser {
     public void addKeywordWrapper(Keyword newKeyword) {
         KeywordDatabase.getKDBConnection().addKeyword(newKeyword);
     }
+    public void generateHtmlReport(Pair<Post, Opinion> data) {
+        HTMLAnalysisAdapter HTMLAnalysis = new HTMLAnalysisAdapter();
+        HTMLAnalysis.loadData(data);
+        HTMLAnalysis.createHTML();
+    }
 
 }

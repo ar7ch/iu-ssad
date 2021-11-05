@@ -16,22 +16,26 @@ class HTMLAnalysisAdapter implements HTMLSupport<Pair<Post, Opinion>> {
 
     @Override
     public void createHTML() {
-        htmlText = "<!DOCTYPE html><html lang=\"en\"><head> <meta name=\"description\" content=\"Report\" /> <meta charset=\"utf-8\"> <title>Report</title></head><body><div class=\"container\"> <pre id=0></pre></div><style></style></body></html>";
+        //Create the HTML template
+        htmlText = "<!DOCTYPE html><html lang=\"en\"><head> <meta name=\"description\"" +
+                " content=\"Report\" /> <meta charset=\"utf-8\"> " +
+                "<title>Report</title></head><body><div class=\"container\"> " +
+                "<pre id=0></pre></div><style></style></body></html>";
         StringBuilder text = new StringBuilder();
+        //Fill the HTML template
         for (Pair<Post, Opinion> data : dataCollection) {
             Post post = data.getLeft();
-            Opinion opinion = data.getRight();
-            text.append("<h1 >Report on post by ").append(post.author.username).append("  from ").append(post.date).append("</h1>");
-            text.append("<h2 >The post evaluated as ").append(opinion).append("</h2>");
-            text.append("<p><strong>Post: </strong>").append(post.text).append("</p>");
-            text.append("<p><strong>Comments: </strong></p>");
-            for (int e = 0; e < post.comments.size(); e++) {
-                Comment comment = post.comments.get(e);
-                text.append("<p style = \"margin-left: 50px;\"><strong>").append(comment.author.username).append("</strong> on <strong>").append(comment.date).append(": </strong>").append(comment.text).append("<p>");
-            }
+            text.append(String.format("<h1 >Report on post by %s from %s</h1>" +
+                            "<h2>The post evaluated as %s</h2>" +
+                            "<p><strong>Post: %s</strong></p><p><strong>Comments: </strong></p>"
+                    , post.author.username, post.date.toString(), data.getRight(), post.text));
+            for (Comment comment : post.comments)
+                text.append(String.format("<p style = \"margin-left: 50px;\"><strong>%s</strong> on" +
+                                " <strong>%s</strong>: %s<p>", comment.author.username,
+                        comment.date.toString(), comment.text));
         }
         htmlText = htmlText.replace("<pre id=0></pre>", text.toString());
-
+        //Export the HTML page
         try {
             FileWriter myWriter = new FileWriter("report.html");
             myWriter.write(htmlText);
@@ -42,6 +46,7 @@ class HTMLAnalysisAdapter implements HTMLSupport<Pair<Post, Opinion>> {
         }
         String pathString = System.getProperty("user.dir") + "/report.html";
         System.out.printf("Generated HTML report at %s%n", pathString);
+        //Open the HTML in a Web Browser
         try {
             openWebpage("file:///" + pathString);
         } catch (UnsupportedOperationException e) {
@@ -50,7 +55,6 @@ class HTMLAnalysisAdapter implements HTMLSupport<Pair<Post, Opinion>> {
             System.out.println("An error occurred");
         }
     }
-
 
     private static void openWebpage(String urlString) throws Exception {
         Desktop.getDesktop().browse(new URL(urlString).toURI());

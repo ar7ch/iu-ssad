@@ -54,9 +54,7 @@ public class Main {
 
         //Print the evaluation to HTML file
         Main.FormatEvaluation(post);
-        HTMLAnalysisAdapter HTMLAnalysis = new HTMLAnalysisAdapter();
-        HTMLAnalysis.loadData(new Pair<Post, Opinion>(post, AnalysisSystem.getConnection().evaluatePost(post)));
-        HTMLAnalysis.createHTML();
+        admin.generateHtmlReport(new Pair<>(post, AnalysisSystem.getConnection().evaluatePost(post)));
     }
 
 }
