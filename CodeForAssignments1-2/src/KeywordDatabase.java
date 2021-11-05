@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class KeywordDatabase {
 
-    static private final ArrayList<Keyword> keywords = new ArrayList<Keyword>();
+    static private final ArrayList<Keyword> keywords = new ArrayList<>();
     static private KeywordDatabase dbInstance;
 
     private KeywordDatabase() {
