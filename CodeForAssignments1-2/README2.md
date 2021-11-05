@@ -1,4 +1,4 @@
-#Report on extension of the opinion mining system
+# Report on extension of the opinion mining system
 ## Introduction
 
 As it was before, the evaluation works in the following way:
@@ -11,7 +11,7 @@ As it was before, the evaluation works in the following way:
 
 ### New feature: Convert report of the evaluated post into an HTML page
 
-![uml/assignment2_usecase.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f42399f2-5775-4876-9da3-7261f6813c45/assignment2_usecase.png)
+![uml/assignment2_usecase.png](https://github.com/ar7ch/iu-ssad/blob/master/CodeForAssignments1-2/uml/assignment2_usecase.png)
 
 New use cases are grayed out.
 
@@ -25,7 +25,7 @@ Hence, we decided to use **the Adapter pattern** that wraps up our system for th
 
 ## How did we implement the Adapter pattern?
 
-![assignment222.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/078eb0ba-a000-46b2-b312-6b58fd82090d/assignment222.png)
+![assignment2.png](https://github.com/ar7ch/iu-ssad/blob/master/CodeForAssignments1-2/uml/assignment2UMLDIAGRAM.png)
 
 New entities are grayed out, and the full class diagram is attached in the archive in .PNG format
 
