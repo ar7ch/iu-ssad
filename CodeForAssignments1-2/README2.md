@@ -11,7 +11,8 @@ As it was before, the evaluation works in the following way:
 
 ### New feature: Convert report of the evaluated post into an HTML page
 
-![uml/assignment2_usecase.png](https://github.com/ar7ch/iu-ssad/blob/master/CodeForAssignments1-2/uml/assignment2_usecase.png)
+![assignment2_usecase](https://user-images.githubusercontent.com/37394070/140531213-33286c6c-ff3b-486c-adc6-b2973f16f235.png)
+
 
 New use cases are grayed out.
 
@@ -19,17 +20,32 @@ With our new feature, admins can make "HTML Reports" which are mined opinions in
 
 Both users and admins interact with a social networking site via some Web browser. Therefore, it's convenient to watch mined opinions in the same web browser. Those reports may be then sold to some advertising agency.
 
-While implementing the feature, our team met a challenge - the opinion mining system had no possibility to output the evaluation just into the browser and the browser could not work with our java evaluations straightaway.
+While implementing the feature, our team met a challenge - the opinion mining system could not output the evaluation just into the browser and the browser could not work with our java evaluations straightaway.
 
 Hence, we decided to use **the Adapter pattern** that wraps up our system for the browser, so we can view the mined opinions with the Web Browser in the convenient format of the HTML page
 
 ## How did we implement the Adapter pattern?
 
-![assignment2.png](https://github.com/ar7ch/iu-ssad/blob/master/CodeForAssignments1-2/uml/assignment2UMLDIAGRAM.png)
+![assignment2UML](https://user-images.githubusercontent.com/37394070/140531284-c97d1c79-52a0-483c-b600-a953770ffdde.png)
+
 
 New entities are grayed out, and the full class diagram is attached in the archive in .PNG format
 
 HTMLAnalysisAdapter loads a Pair that has instances of Post and Opinion evaluated by our system. Then adapter formats the data to the format readable by a Web browser.
+
+## Description of UML Diagram entities
+
+**Web Browser** - is an external client of the system.
+
+**HTMLSupport** - is an interface to work with HTML files.
+
+**HTMLAnalysisAdapter** - is the class implementing the adapter pattern.
+
+**Pair<L, R>** - is an auxiliary class for convenient data transfer.
+
+**AnalysisSystem** - is the main entity of our project that implements the technical task of the customer.  
+  
+  <br>
 
 ## Code
 
@@ -78,14 +94,3 @@ openWebpage("file:///" + pathString);
 
 ```
 
-## Description of UML Diagram entities
-
-**Web Browser** - is an external client of the system.
-
-**HTMLSupport** - is an interface to work with HTML files.
-
-**HTMLAnalysisAdapter** - is the class implementing the adapter pattern.
-
-**Pair<L, R>** - is an auxiliary class for convenient data transfer.
-
-**AnalysisSystem** - is the main entity of our project that implements the technical task of the customer.
