@@ -22,14 +22,14 @@ Both users and admins interact with a social networking site via some Web browse
 
 While implementing the feature, our team met a challenge - the opinion mining system could not output the evaluation just into the browser and the browser could not work with our java evaluations straightaway.
 
-Hence, we decided to use **the Adapter pattern** that wraps up our system for the browser, so we can view the mined opinions with the Web Browser in the convenient format of the HTML page
+Hence, we decided to use **the Adapter pattern** that wraps up our system for the browser, so we can view the mined opinions with the Web Browser in the convenient format of the HTML page.
 
 ## How did we implement the Adapter pattern?
 
 ![assignment2UML](https://user-images.githubusercontent.com/37394070/140531284-c97d1c79-52a0-483c-b600-a953770ffdde.png)
 
 
-New entities are grayed out, and the full class diagram is attached in the archive in .PNG format
+New entities are grayed out. The full class diagram is attached in the submission in .png format.
 
 HTMLAnalysisAdapter loads a Pair that has instances of Post and Opinion evaluated by our system. Then adapter formats the data to the format readable by a Web browser.
 
