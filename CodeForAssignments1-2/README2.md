@@ -11,7 +11,7 @@ As it was before, the evaluation works in the following way:
 
 ### New feature: Convert report of the evaluated post into an HTML page
 
-![assignment2_usecase.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f42399f2-5775-4876-9da3-7261f6813c45/assignment2_usecase.png)
+![uml/assignment2_usecase.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f42399f2-5775-4876-9da3-7261f6813c45/assignment2_usecase.png)
 
 New use cases are grayed out.
 
