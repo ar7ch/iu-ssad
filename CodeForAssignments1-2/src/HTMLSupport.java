@@ -28,10 +28,10 @@ class HTMLAnalysisAdapter implements HTMLSupport<Pair<Post, Opinion>> {
             text.append(String.format("<h1 >Report on post by %s from %s</h1>" +
                             "<h2>The post evaluated as %s</h2>" +
                             "<p><strong>Post: %s</strong></p><p><strong>Comments: </strong></p>"
-                    , post.author.username, post.date.toString(), data.getRight(), post.text));
+                    , post.author, post.date.toString(), data.getRight(), post.text));
             for (Comment comment : post.comments)
                 text.append(String.format("<p style = \"margin-left: 50px;\"><strong>%s</strong> on" +
-                                " <strong>%s</strong>: %s<p>", comment.author.username,
+                                " <strong>%s</strong>: %s<p>", comment.author,
                         comment.date.toString(), comment.text));
         }
         htmlText = htmlText.replace("<pre id=0></pre>", text.toString());

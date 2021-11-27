@@ -10,13 +10,15 @@ public abstract class AbstractUser {
         this.passwordHash = passwordHash;
         this.id = UUID.randomUUID();
     }
+    public AbstractUser() {
+    }
 
     public Post createPost(String text) {
-        return new Post(text, this);
+        return new Post(text, this.id);
     }
 
     public Comment createComment(String text, Post post) {
-        Comment comment = new Comment(text, this);
+        Comment comment = new Comment(text, this.id);
         post.comments.add(comment);
         return comment;
     }
