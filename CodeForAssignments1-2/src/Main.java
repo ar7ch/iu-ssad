@@ -76,7 +76,7 @@ public class Main {
         RPSS.undoSomething(post.id);
         Files.write(Paths.get("output3.txt"),RPSS.save().getBytes(StandardCharsets.UTF_8));
 
-        RPSS.restore(Files.readString(Paths.get("output1.txt")));
+        RPSS.restore(Files.readString(Paths.get("output2.txt")));
 
 
 
@@ -85,7 +85,7 @@ public class Main {
 
         //Print the evaluation to HTML file
         Main.FormatEvaluation(post);
-        admin.generateHtmlReport(new Pair<>(post, AnalysisSystem.getConnection().evaluatePost(post)));
+        admin.generateHtmlReport(RPSS);
     }
 
 }
