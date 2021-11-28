@@ -61,7 +61,7 @@ public class Main {
         Thread.sleep(700);
 
         //export history to a first file
-        Files.write(Paths.get("output1.txt"),RPSS.saveToJson().getBytes(StandardCharsets.UTF_8));
+        Files.write(Paths.get("output1.json"),RPSS.saveToJson().getBytes(StandardCharsets.UTF_8));
 
         Comment c4 = u3.createComment("The actors play good and the message behind is valuable", post);
         c4.date.setTime(post.date.getTime() + (7123 * 60 * 1000));
@@ -75,13 +75,13 @@ public class Main {
         RPSS.makeSnapshot(post); //save state of the mined opinion
 
         //export history to a second file
-        Files.write(Paths.get("output2.txt"),RPSS.saveToJson().getBytes(StandardCharsets.UTF_8));
+        Files.write(Paths.get("output2.json"),RPSS.saveToJson().getBytes(StandardCharsets.UTF_8));
         RPSS.undoSnapshot(post.id); // undo last snapshot of the post so state changed
         // ... some operations on that state may happen here
         //export history to a third file
-        Files.write(Paths.get("output3.txt"),RPSS.saveToJson().getBytes(StandardCharsets.UTF_8));
+        Files.write(Paths.get("output3.json"),RPSS.saveToJson().getBytes(StandardCharsets.UTF_8));
         //restoring snapshot data from the second file
-        RPSS.restoreFromJson(Files.readString(Paths.get("output2.txt")));
+        RPSS.restoreFromJson(Files.readString(Paths.get("output2.json")));
 
         admin.generateHtmlReport(RPSS); //Output the evaluation of the restored state to an HTML file
 

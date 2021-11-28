@@ -17,8 +17,8 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
     private String htmlText;
     private RatedPostSnapshotSupport rpssInstance;
 
-    public String createTable(UUID index) {
-        ArrayList<RatedPostSnapshot> list = rpssInstance.getPostsWithHistory().get(index);
+    public String createTable(UUID postIndex) {
+        ArrayList<RatedPostSnapshot> list = rpssInstance.getPostsWithHistory().get(postIndex);
         String table = "<table><tr><th>Date</th><th>Value</th><th>Evaluation</th></tr>";
         for (RatedPostSnapshot item : list) {
             Date date = item.getCreationDate();
@@ -32,14 +32,14 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
 
     public String DescribePosts() {
         String out = "";
-        for (UUID index : rpssInstance.getPosts().keySet()) {
-            var post = rpssInstance.getPosts().get(index);
+        for (UUID postIndex : rpssInstance.getPosts().keySet()) {
+            var post = rpssInstance.getPosts().get(postIndex);
             out += "<h2>Post by <small>"+post.author+"</small> from <small>"+post.date+"</small> <br><small><i>-\""+post.text+"\"</i></small> </h2>";
-            var snapArr = rpssInstance.getPostsWithHistory().get(index);
+            var snapArr = rpssInstance.getPostsWithHistory().get(postIndex);
             out += "<h3>The Table of Opinion Dynamics</h3>";
-            out+=createTable(index);
+            out+=createTable(postIndex);
             for (RatedPostSnapshot ratedPostSnapshot : snapArr) {
-                out += DescribePost(rpssInstance.getPosts().get(index), ratedPostSnapshot);
+                out += DescribePost(rpssInstance.getPosts().get(postIndex), ratedPostSnapshot);
             }
         }
         return out;
