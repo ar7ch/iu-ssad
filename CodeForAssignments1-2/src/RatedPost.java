@@ -79,8 +79,16 @@ class RatedPostSnapshotSupport {
             .enableComplexMapKeySerialization()
             .create();
 
-    public HashMap<UUID, RatedPost> posts;
-    public HashMap<UUID, ArrayList<RatedPostSnapshot>> postsWithHistory;
+    public HashMap<UUID, RatedPost> getPosts() {
+        return posts;
+    }
+
+    public HashMap<UUID, ArrayList<RatedPostSnapshot>> getPostsWithHistory() {
+        return postsWithHistory;
+    }
+
+    private HashMap<UUID, RatedPost> posts;
+    private HashMap<UUID, ArrayList<RatedPostSnapshot>> postsWithHistory;
     RatedPostSnapshotSupport()
     {
         posts = new HashMap<UUID, RatedPost>();

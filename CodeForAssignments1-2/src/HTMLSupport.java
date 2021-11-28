@@ -4,7 +4,6 @@ import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public interface HTMLSupport<T> {
@@ -15,10 +14,10 @@ public interface HTMLSupport<T> {
 
 class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
     private String htmlText;
-    private RatedPostSnapshotSupport dataCollection;
+    private RatedPostSnapshotSupport rpssInstance;
 
     public String createTable(UUID index) {
-        ArrayList<RatedPostSnapshot> list = dataCollection.postsWithHistory.get(index);
+        ArrayList<RatedPostSnapshot> list = rpssInstance.getPostsWithHistory().get(index);
         String table = "<table><tr><th>Date</th><th>Value</th><th>Evaluation</th></tr>";
         for (RatedPostSnapshot item : list) {
             ZonedDateTime time = item.getCreationDate();
@@ -32,14 +31,14 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
 
     public String DescribePosts() {
         String out = "";
-        for (UUID index : dataCollection.posts.keySet()) {
-            var post =dataCollection.posts.get(index);
+        for (UUID index : rpssInstance.getPosts().keySet()) {
+            var post = rpssInstance.getPosts().get(index);
             out += "<h2>Post by <small>"+post.author+"</small> from <small>"+post.date+"</small> <br><small><i>-\""+post.text+"\"</i></small> </h2>";
-            var snapArr = dataCollection.postsWithHistory.get(index);
+            var snapArr = rpssInstance.getPostsWithHistory().get(index);
             out += "<h3>The Table of Opinion Dynamics</h3>";
             out+=createTable(index);
             for (RatedPostSnapshot ratedPostSnapshot : snapArr) {
-                out += DescribePost(dataCollection.posts.get(index), ratedPostSnapshot);
+                out += DescribePost(rpssInstance.getPosts().get(index), ratedPostSnapshot);
             }
         }
         return out;
@@ -103,7 +102,7 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
     @Override
     public void loadData(RatedPostSnapshotSupport data) {
 //        dataCollection.add(data);
-        dataCollection = data;
+        rpssInstance = data;
     }
 
     private static void openWebpage(String urlString) throws Exception {
