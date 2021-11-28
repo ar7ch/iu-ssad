@@ -25,7 +25,7 @@ As our system already had the feature to generate reports on mined opinions, we 
 
 While implementing the new feature, our team met a challenge - the opinion mining system could not save states of the mined opinions straightaway.
 
-Hence, we applied **the Memento pattern** that allows our system to save the state of the mined opinion, and restore data from that state. Therefore, our clients can see the dynamics of mined opinions over time.
+Hence, we applied **the Memento pattern**. This pattern allows our system to save the state of the mined opinion, and restore data from that state. Therefore, our clients can see the dynamics of mined opinions over time.
 
 ## Example of an HTMLReport
 The picture below is the part of a generated report that uses our implementation of the Memento pattern. This report shows the dynamics of the mined opinions. Our customers are fully satisfied with this output of our system since it allows them to track people's opinions on actual trends.  
