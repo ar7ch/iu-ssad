@@ -30,7 +30,7 @@ Hence, we applied **the Memento pattern**. This pattern allows our system to sav
 ## Example of an HTMLReport
 The picture below is the part of a generated report that uses our implementation of the Memento pattern. This report shows the dynamics of the mined opinions. Our customers are fully satisfied with this output of our system since it allows them to track people's opinions on actual trends.  
 The data for this report is fully fictional. We respect the privacy of our clients and do not reveal real information. 
-![ReportExample](https://github.com/ar7ch/iu-ssad/blob/master/assignment3/NewReport.jpg?raw=true)
+![ReportExample](https://github.com/ar7ch/iu-ssad/blob/master/assignment3/NewReport.png?raw=true)
 
 ## How did we implement the Memento pattern?
 
