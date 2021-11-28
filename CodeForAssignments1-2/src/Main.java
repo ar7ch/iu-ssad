@@ -74,6 +74,8 @@ public class Main {
 
         Files.write(Paths.get("output2.txt"),RPSS.save().getBytes(StandardCharsets.UTF_8));
         RPSS.undoSomething(post.id);
+        RPSS.undoSomething(post.id);
+        RPSS.undoSomething(post.id);
         Files.write(Paths.get("output3.txt"),RPSS.save().getBytes(StandardCharsets.UTF_8));
 
         RPSS.restore(Files.readString(Paths.get("output2.txt")));

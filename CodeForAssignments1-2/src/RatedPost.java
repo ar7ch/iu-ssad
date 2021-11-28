@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class RatedPost extends Post{
+public class RatedPost extends Post {
     private Opinion opinion;
 
     public RatedPost(Post post, Opinion opinion) {
-        super(post.text,post.author);
+        super(post.text, post.author);
         this.opinion = opinion;
         this.date = post.date;
         this.id = post.id;
@@ -24,12 +24,12 @@ public class RatedPost extends Post{
     public void restoreState(RatedPostSnapshot memento) {
         this.comments = memento.getComments();
         this.opinion = memento.getOpinion();
+        System.out.println(opinion+" "+comments.toString()); //! DEBUG
         // доделать
     }
 
     public RatedPostSnapshot saveState() {
-        RatedPostSnapshot snapshot = new RatedPostSnapshot(this.comments, AnalysisSystem.getConnection().evaluatePost(this)   );
-        return snapshot;
+        return new RatedPostSnapshot(this.comments, AnalysisSystem.getConnection().evaluatePost(this));
     }
 }
 
@@ -48,7 +48,10 @@ class RatedPostSnapshot {
         this.opinion = opinion;
         this.creationDate = ZonedDateTime.now();
     }
-    public Opinion getOpinion(){return this.opinion;}
+
+    public Opinion getOpinion() {
+        return this.opinion;
+    }
 
     public ZonedDateTime getCreationDate() {
         return this.creationDate;
@@ -78,24 +81,30 @@ class RatedPostSnapshotSupport {
 
     public HashMap<UUID, RatedPost> posts;
     public HashMap<UUID, ArrayList<RatedPostSnapshot>> postsWithHistory;
-    RatedPostSnapshotSupport()
-    {
+
+    RatedPostSnapshotSupport() {
         posts = new HashMap<UUID, RatedPost>();
         postsWithHistory = new HashMap<UUID, ArrayList<RatedPostSnapshot>>();
     }
+
     public void doSomething(RatedPost post) {
         UUID idx = post.id;
         posts.put(idx, post);
-        if(postsWithHistory.get(idx)==null) {postsWithHistory.put(idx, new ArrayList<RatedPostSnapshot>());}
+        postsWithHistory.computeIfAbsent(idx, k -> new ArrayList<RatedPostSnapshot>());
         postsWithHistory.get(idx).add(post.saveState());
     }
+
     public void doSomething(Post post) {
         doSomething(new RatedPost(post, AnalysisSystem.getConnection().evaluatePost(post)));
     }
 
     public void undoSomething(UUID idx) {
         ArrayList<RatedPostSnapshot> postHistory = this.postsWithHistory.get(idx);
-        this.posts.get(idx).restoreState(postHistory.get(postHistory.size()-1));
+        if (postHistory.size() == 0) {
+            System.out.println("Empty stack");
+            return;
+        }
+        this.posts.get(idx).restoreState(postHistory.remove(postHistory.size() - 1));
     }
 
     public String save() {
