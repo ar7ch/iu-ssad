@@ -23,8 +23,8 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
         for (RatedPostSnapshot item : list) {
             ZonedDateTime time = item.getCreationDate();
             Opinion opinion = item.getOpinion();
-            Integer opinionvalue = item.getOpinionValue();
-            table += "<tr><td>" + cutDateTime(time) + "</td><td>" + opinionvalue.toString() + "</td><td>" + opinion.toString() + "</td></tr>";
+            Integer opinionValue = item.getOpinionValue();
+            table += "<tr><td>" + cutDateTime(time) + "</td><td>" + opinionValue.toString() + "</td><td>" + opinion.toString() + "</td></tr>";
         }
         table += "</table>";
         return table;
@@ -34,12 +34,12 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
         String out = "";
         for (UUID index : dataCollection.posts.keySet()) {
             var post =dataCollection.posts.get(index);
-            out += "<h2>Post by "+post.author+" from "+post.date+" <br><i>-\""+post.text+"\"</i> </h2>";
+            out += "<h2>Post by <small>"+post.author+"</small> from <small>"+post.date+"</small> <br><small><i>-\""+post.text+"\"</i></small> </h2>";
             var snapArr = dataCollection.postsWithHistory.get(index);
-            out += "<p>Opinion dynamics</p>";
+            out += "<h3>The Table of Opinion Dynamics</h3>";
             out+=createTable(index);
-            for (int i = 0; i < snapArr.size(); i++) {
-                out += DescribePost(dataCollection.posts.get(index), snapArr.get(i));
+            for (RatedPostSnapshot ratedPostSnapshot : snapArr) {
+                out += DescribePost(dataCollection.posts.get(index), ratedPostSnapshot);
             }
         }
         return out;
@@ -52,15 +52,12 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
     @Override
     public void createHTML() {
         //Create the HTML template
-        htmlText = "<!DOCTYPE html><html lang=\"en\"><head> <meta name=\"description\"" +
-                " content=\"Report\" /> <meta charset=\"utf-8\"> " +
-                "<title>Report</title> <style>\n" +
-                "table, th, td {\n" +
-                "  border: 1px solid black;\n" +
-                "}\n" +
-                "table{ border-collapse: collapse; text-align: center;}" +
-                "</style></head><body><div class=\"container\"> <h1>Mined opinions</h1>" +
-                "<pre id=0></pre></div><style></style></body></html>";
+        htmlText = """
+                <!DOCTYPE html><html lang="en"><head> <meta name="description" content="Report" /> <meta charset="utf-8"> <title>Report</title> <style>
+                table, th, td {
+                  border: 1px solid black;
+                }
+                table{ border-collapse: collapse; text-align: center;}</style></head><body><div class="container"> <h1>Mined opinions</h1><pre id=0></pre></div><style></style></body></html>""";
         //Fill the HTML template
         htmlText = htmlText.replace("<pre id=0></pre>", DescribePosts());
         //Export the HTML page
@@ -89,10 +86,10 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
         String out = "<pre id=0></pre>";
         StringBuilder text = new StringBuilder();
         //Fill the HTML template
-        text.append(String.format("<h3> <u>Snapshot</u> on post by %s from %s</h3>" +
+        text.append(String.format("<h3> <u>Snapshot</u> from %s</h3>" +
                         "<h4>The post evaluated as: %s</h4>" +
                         "<p><strong>Comments: </strong></p>"
-                , post.author, cutDateTime(postSnapshot.getCreationDate()), postSnapshot.getOpinion()));
+                , cutDateTime(postSnapshot.getCreationDate()), postSnapshot.getOpinion()));
         for (Comment comment : postSnapshot.getComments())
             text.append(String.format("<p style = \"margin-left: 50px;\"><strong>%s</strong> on" +
                             " <strong>%s</strong>: %s<p>", comment.author,
