@@ -12,10 +12,11 @@ import java.util.UUID;
 
 public class RatedPost extends Post{
     private Opinion opinion;
-
-    public RatedPost(Post post, Opinion opinion) {
+    private Integer opinionValue;
+    public RatedPost(Post post, Pair<Integer,Opinion> opinionPair) {
         super(post.text,post.author);
-        this.opinion = opinion;
+        this.opinion = opinionPair.getRight();
+        this.opinionValue = opinionPair.getLeft();
         this.date = post.date;
         this.id = post.id;
         this.comments = new ArrayList<>(post.comments);
@@ -28,24 +29,30 @@ public class RatedPost extends Post{
     }
 
     public RatedPostSnapshot saveState() {
-        RatedPostSnapshot snapshot = new RatedPostSnapshot(this.comments, AnalysisSystem.getConnection().evaluatePost(this)   );
+        RatedPostSnapshot snapshot = new RatedPostSnapshot(this.comments, AnalysisSystem.getConnection().evaluatePost(this)  );
         return snapshot;
     }
 }
 
 class RatedPostSnapshot {
-    private String name;
-    public ZonedDateTime creationDate;
+    private ZonedDateTime creationDate;
     private Opinion opinion;
+
+    public Integer getOpinionValue() {
+        return opinionValue;
+    }
+
+    private Integer opinionValue;
     private ArrayList<Comment> comments;
 
     public ArrayList<Comment> getComments() {
         return new ArrayList<Comment>(comments);
     }
 
-    public RatedPostSnapshot(ArrayList<Comment> comments, Opinion opinion) {
+    public RatedPostSnapshot(ArrayList<Comment> comments, Pair<Integer, Opinion> opinionPair) {
+        this.opinionValue = opinionPair.getLeft();
         this.comments = new ArrayList<Comment>(comments);
-        this.opinion = opinion;
+        this.opinion = opinionPair.getRight();
         this.creationDate = ZonedDateTime.now();
     }
     public Opinion getOpinion(){return this.opinion;}
@@ -54,20 +61,16 @@ class RatedPostSnapshot {
         return this.creationDate;
     }
 
-    public String getName() {
-        return name;
-    }
-
 }
 
 class RatedPostSnapshotSupport {
+    //this block allows us to serialize and deserialize ZonedDataTime
     public static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(ZonedDateTime.class, new TypeAdapter<ZonedDateTime>() {
                 @Override
                 public void write(JsonWriter out, ZonedDateTime value) throws IOException {
                     out.value(value.toString());
                 }
-
                 @Override
                 public ZonedDateTime read(JsonReader in) throws IOException {
                     return ZonedDateTime.parse(in.nextString());
@@ -83,17 +86,17 @@ class RatedPostSnapshotSupport {
         posts = new HashMap<UUID, RatedPost>();
         postsWithHistory = new HashMap<UUID, ArrayList<RatedPostSnapshot>>();
     }
-    public void doSomething(RatedPost post) {
+    public void snap(RatedPost post) {
         UUID idx = post.id;
         posts.put(idx, post);
         if(postsWithHistory.get(idx)==null) {postsWithHistory.put(idx, new ArrayList<RatedPostSnapshot>());}
         postsWithHistory.get(idx).add(post.saveState());
     }
-    public void doSomething(Post post) {
-        doSomething(new RatedPost(post, AnalysisSystem.getConnection().evaluatePost(post)));
+    public void snap(Post post) {
+        snap(new RatedPost(post, AnalysisSystem.getConnection().evaluatePost(post)));
     }
 
-    public void undoSomething(UUID idx) {
+    public void undoSnap(UUID idx) {
         ArrayList<RatedPostSnapshot> postHistory = this.postsWithHistory.get(idx);
         this.posts.get(idx).restoreState(postHistory.get(postHistory.size()-1));
     }

@@ -11,7 +11,7 @@ public class AnalysisSystem {
         return systemInstance;
     }
 
-    public Opinion evaluatePost(Post post) {
+    public Pair<Integer, Opinion> evaluatePost(Post post) {
         KeywordDatabase KWD = KeywordDatabase.getKDBConnection();
         int value = 0;
         int count = 0;
@@ -26,10 +26,10 @@ public class AnalysisSystem {
                 }
             }
         }
-        float valuef = (float) value / count;
-        if (valuef < -0.5) return Opinion.Worst;
-        if (valuef < 0.5) return Opinion.Bad;
-        if (valuef >= 0.5) return Opinion.Good;
+        float valuef = ((float) value) / count;
+        if (valuef < -0.5) return new Pair<>((int)(valuef*100), Opinion.Worst);
+        if (valuef < 0.5) return new Pair<>((int)(valuef*100), Opinion.Bad);
+        if (valuef >= 0.5) return new Pair<>((int)(valuef*100), Opinion.Good);
 
         return null;
     }
