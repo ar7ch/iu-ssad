@@ -34,7 +34,7 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
         String out = "";
         for (UUID index : dataCollection.posts.keySet()) {
             var post =dataCollection.posts.get(index);
-            out += "<h2>Post by "+post.author+" from "+post.date+" <br>\""+post.text+"\" </h2>";
+            out += "<h2>Post by "+post.author+" from "+post.date+" <br><i>-\""+post.text+"\"</i> </h2>";
             var snapArr = dataCollection.postsWithHistory.get(index);
             out += "<p>Opinion dynamics</p>";
             out+=createTable(index);
@@ -89,8 +89,8 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
         String out = "<pre id=0></pre>";
         StringBuilder text = new StringBuilder();
         //Fill the HTML template
-        text.append(String.format("<h3 >Snapshot on post by %s from %s</h3>" +
-                        "<h4>The post evaluated as %s</h4>" +
+        text.append(String.format("<h3> <u>Snapshot</u> on post by %s from %s</h3>" +
+                        "<h4>The post evaluated as: %s</h4>" +
                         "<p><strong>Comments: </strong></p>"
                 , post.author, cutDateTime(postSnapshot.getCreationDate()), postSnapshot.getOpinion()));
         for (Comment comment : postSnapshot.getComments())

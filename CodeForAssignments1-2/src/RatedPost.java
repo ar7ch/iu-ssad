@@ -86,26 +86,26 @@ class RatedPostSnapshotSupport {
         posts = new HashMap<UUID, RatedPost>();
         postsWithHistory = new HashMap<UUID, ArrayList<RatedPostSnapshot>>();
     }
-    public void snap(RatedPost post) {
+    public void makeSnapshot(RatedPost post) {
         UUID idx = post.id;
         posts.put(idx, post);
         if(postsWithHistory.get(idx)==null) {postsWithHistory.put(idx, new ArrayList<RatedPostSnapshot>());}
         postsWithHistory.get(idx).add(post.saveState());
     }
-    public void snap(Post post) {
-        snap(new RatedPost(post, AnalysisSystem.getConnection().evaluatePost(post)));
+    public void makeSnapshot(Post post) {
+        makeSnapshot(new RatedPost(post, AnalysisSystem.getConnection().evaluatePost(post)));
     }
 
-    public void undoSnap(UUID idx) {
+    public void undoSnapshot(UUID idx) {
         ArrayList<RatedPostSnapshot> postHistory = this.postsWithHistory.get(idx);
         this.posts.get(idx).restoreState(postHistory.get(postHistory.size()-1));
     }
 
-    public String save() {
+    public String saveToJson() {
         return GSON.toJson(this);
     }
 
-    public void restore(String json) {
+    public void restoreFromJson(String json) {
         this.posts = GSON.fromJson(json, RatedPostSnapshotSupport.class).posts;
         this.postsWithHistory = GSON.fromJson(json, RatedPostSnapshotSupport.class).postsWithHistory;
     }

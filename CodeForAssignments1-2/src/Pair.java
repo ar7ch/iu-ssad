@@ -1,29 +1,28 @@
-public record Pair<L, R>(L Post, R Opinion) {
+public record Pair<L, R>(L Left, R Right) {
 
     public Pair {
-        assert Post != null;
-        assert Opinion != null;
-
+        assert Left != null;
+        assert Right != null;
     }
 
     public L getLeft() {
-        return Post;
+        return Left;
     }
 
     public R getRight() {
-        return Opinion;
+        return Right;
     }
 
     @Override
     public int hashCode() {
-        return Post.hashCode() ^ Opinion.hashCode();
+        return Left.hashCode() ^ Right.hashCode();
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Pair pair)) return false;
-        return this.Post.equals(pair.getLeft()) &&
-                this.Opinion.equals(pair.getRight());
+        return this.Left.equals(pair.getLeft()) &&
+                this.Right.equals(pair.getRight());
     }
 
 }

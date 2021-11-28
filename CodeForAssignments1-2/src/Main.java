@@ -47,41 +47,41 @@ public class Main {
 
         Comment c1 = u2.createComment("I personally think all superhero movies are awful :(", post);
         c1.date.setTime(post.date.getTime() + (10 * 60 * 1000));
-        RPSS.snap(post); //hear and further similar strings mean making a snapshot
+        RPSS.makeSnapshot(post); //hear and further similar strings mean making a snapshot
         Thread.sleep(700);
 
         Comment c2 = u2.createComment("BTW, hav u seen da 2nd chapter? dat was good", post);
         c2.date.setTime(post.date.getTime() + (21 * 60 * 1000));
-        RPSS.snap(post);
+        RPSS.makeSnapshot(post);
         Thread.sleep(700);
 
         Comment c3 = u3.createComment("Man, the movie is really cool, just watched it on the last weekends", post);
         c3.date.setTime(post.date.getTime() + (42 * 60 * 1000));
-        RPSS.snap(post);
+        RPSS.makeSnapshot(post);
         Thread.sleep(700);
 
-        Files.write(Paths.get("output1.txt"),RPSS.save().getBytes(StandardCharsets.UTF_8));
+        Files.write(Paths.get("output1.txt"),RPSS.saveToJson().getBytes(StandardCharsets.UTF_8));
 
         Comment c4 = u3.createComment("The actors play good and the message behind is valuable", post);
         c4.date.setTime(post.date.getTime() + (7123 * 60 * 1000));
         c4.likes = 7;
-        RPSS.snap(post);
+        RPSS.makeSnapshot(post);
         Thread.sleep(700);
 
         Comment c5 = u4.createComment("Although the graphics was poor, the plot is cool :)", post);
         c5.date.setTime(post.date.getTime() + (8123 * 60 * 1000));
         c5.likes = 2;
-        RPSS.snap(post);
+        RPSS.makeSnapshot(post);
 
         // export history to file
-        Files.write(Paths.get("output2.txt"),RPSS.save().getBytes(StandardCharsets.UTF_8));
+        Files.write(Paths.get("output2.txt"),RPSS.saveToJson().getBytes(StandardCharsets.UTF_8));
 
         // undo last snapshot of the post
-        RPSS.undoSnap(post.id);
-        Files.write(Paths.get("output3.txt"),RPSS.save().getBytes(StandardCharsets.UTF_8));
+        RPSS.undoSnapshot(post.id);
+        Files.write(Paths.get("output3.txt"),RPSS.saveToJson().getBytes(StandardCharsets.UTF_8));
 
         //restoring snapshot data from file
-        RPSS.restore(Files.readString(Paths.get("output2.txt")));
+        RPSS.restoreFromJson(Files.readString(Paths.get("output2.txt")));
 
 
 
