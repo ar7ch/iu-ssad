@@ -123,8 +123,8 @@ class RatedPostSnapshotSupport { //Caretaker class
         return GSON.toJson(this);
     }
 
-    public void restoreFromJson(String json) {
-        this.posts = GSON.fromJson(json, RatedPostSnapshotSupport.class).posts;
-        this.postsWithHistory = GSON.fromJson(json, RatedPostSnapshotSupport.class).postsWithHistory;
+    public void restoreFromJson(String jsonPath) {
+        this.posts = GSON.fromJson(jsonPath, RatedPostSnapshotSupport.class).posts;
+        this.postsWithHistory = GSON.fromJson(jsonPath, RatedPostSnapshotSupport.class).postsWithHistory;
     }
 }
