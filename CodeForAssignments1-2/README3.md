@@ -24,10 +24,12 @@ So with this data, they can build the right advertising strategy and get more pr
 As our system already had the feature to generate reports on mined opinions, we decided to expand this notion with the usage of snapshots. Those snapshots represent the state of people's opinion on some topic at some moment in time.
 While implementing the feature, our team met a challenge - the opinion mining system could not save states of the mined opinions straightaway.
 
-Hence, we applied **the Memento pattern** that allows our system to save the state of the mined opinion, and restore data from that state. Therefore, our clients are able to see the dynamics of mined opinions over time.
+Hence, we applied **the Memento pattern** that allows our system to save the state of the mined opinion, and restore data from that state. Therefore, our clients can see the dynamics of mined opinions over time.
 
-## Example of the HTMLReport
-~~~~
+## Example of an HTMLReport
+The picture below is the part of a generated report that uses our implementation of the Memento pattern. This report shows the dynamics of the mined opinions. Our customers are fully satisfied with this output of our system since it allows them to track people's opinions on actual trends.  
+The data for this report is fully fictional. We respect the privacy of our clients and do not reveal real information. 
+![ReportExample](https://github.com/ar7ch/iu-ssad/blob/master/assignment3/NewReport.jpg?raw=true)
 
 ## How did we implement the Memento pattern?
 
