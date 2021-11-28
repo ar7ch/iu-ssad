@@ -12,7 +12,7 @@ As it was before, the evaluation works in the following way:
 
 ### New feature: Opinion Dynamics over time
 
-![assignment3_usecase](ps://user-images.githubusercontent.com/37394070/140531213-33286c6c-ff3b-486c-adc6-b2973f16f235.png)
+![assignment3_usecase](https://github.com/ar7ch/iu-ssad/blob/master/assignment3/uml/assignment3_usecase.png?raw=true)
 
 
 New use cases are grayed out.
