@@ -10,7 +10,7 @@ As it was before, the evaluation works in the following way:
 5. The evaluations can be seen in a web browser.
 6. **From now on, HTML reports show the dynamics of the opinions.**
 
-### New feature: Opinion Dynamics over time
+### New feature: Show Opinion Dynamics over time
 
 ![assignment3_usecase](https://github.com/ar7ch/iu-ssad/blob/master/assignment3/uml/assignment3_usecase.png?raw=true)
 
@@ -63,13 +63,11 @@ Below is the description of the most important classes for the implementation of
 Below is the example of memento pattern usage from the testing class Main.java. The code saves the state of the mined opinion. When needed, the code restores the desired state, converts it to the HTML format then passes it to a Web Browser.
 ```java
  Comment c4 = u3.createComment("The actors play good and the message behind is valuable", post);
- c4.date.setTime(post.date.getTime() + (7123 * 60 * 1000));
  c4.likes = 7;
  RPSS.makeSnapshot(post); //save state of the mined opinion
- Thread.sleep(700);
+ Thread.sleep(1000);
 
  Comment c5 = u4.createComment("Although the graphics was poor, the plot is cool :)", post);
- c5.date.setTime(post.date.getTime() + (8123 * 60 * 1000));
  c5.likes = 2;
  RPSS.makeSnapshot(post); //save state of the mined opinion
 

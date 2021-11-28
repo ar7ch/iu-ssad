@@ -46,31 +46,26 @@ public class Main {
         //Likes act like multiplier of reactions. When one likes a comment it means they agree with that reaction
 
         Comment c1 = u2.createComment("I personally think all superhero movies are awful :(", post);
-        c1.date.setTime(post.date.getTime() + (10 * 60 * 1000));
         RPSS.makeSnapshot(post); //save state of the mined opinion
-        Thread.sleep(700);
+        Thread.sleep(1000);
 
         Comment c2 = u2.createComment("BTW, hav u seen da 2nd chapter? dat was good", post);
-        c2.date.setTime(post.date.getTime() + (21 * 60 * 1000));
         RPSS.makeSnapshot(post); //save state of the mined opinion
-        Thread.sleep(700);
+        Thread.sleep(1000);
 
         Comment c3 = u3.createComment("Man, the movie is really cool, just watched it on the last weekends", post);
-        c3.date.setTime(post.date.getTime() + (42 * 60 * 1000));
         RPSS.makeSnapshot(post); //save state of the mined opinion
-        Thread.sleep(700);
+        Thread.sleep(1000);
 
         //export history to a first file
         Files.write(Paths.get("output1.json"),RPSS.saveToJson().getBytes(StandardCharsets.UTF_8));
 
         Comment c4 = u3.createComment("The actors play good and the message behind is valuable", post);
-        c4.date.setTime(post.date.getTime() + (7123 * 60 * 1000));
         c4.likes = 7;
         RPSS.makeSnapshot(post); //save state of the mined opinion
-        Thread.sleep(700);
+        Thread.sleep(1000);
 
         Comment c5 = u4.createComment("Although the graphics was poor, the plot is cool :)", post);
-        c5.date.setTime(post.date.getTime() + (8123 * 60 * 1000));
         c5.likes = 2;
         RPSS.makeSnapshot(post); //save state of the mined opinion
 
