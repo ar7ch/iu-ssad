@@ -3,11 +3,11 @@
 
 As it was before, the evaluation works in the following way:
 
-1. A user creates a post that is their opinion on some topic.
-2. Some users comment on the post that is their reaction to the opinion.
-3. Likes on comments are multipliers of reactions. When one likes a comment, it means they agree with that reaction.
-4. Based on the keywords in the comments, the analysis system evaluates whether the post topic is Good, Bad, or Worst. The project has a single keyword database, which allows the Analysis System to make uniform calculations of any post.
-5. The evaluations can be seen in a web browser.
+1. A user creates a post which express their opinion on some topic.
+2. Users leave comments on the post. Comments are their reaction to this opinion.
+3. Likes on comments are multipliers of reactions. When one likes a comment, it implies they agree with that reaction.
+4. The analysis system evaluates whether the post topic is Good, Bad, or Worst, based on the keywords in the comments. The project has a single keyword database, which allows the Analysis System to make uniform calculations of any post.
+5. The evaluations can be opened via web browser.
 6. **From now on, HTML reports show the dynamics of the opinions.**
 
 ### New feature: Show Opinion Dynamics over time
