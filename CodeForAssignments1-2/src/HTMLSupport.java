@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -20,10 +21,10 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
         ArrayList<RatedPostSnapshot> list = rpssInstance.getPostsWithHistory().get(index);
         String table = "<table><tr><th>Date</th><th>Value</th><th>Evaluation</th></tr>";
         for (RatedPostSnapshot item : list) {
-            ZonedDateTime time = item.getCreationDate();
+            Date date = item.getCreationDate();
             Opinion opinion = item.getOpinion();
             Integer opinionValue = item.getOpinionValue();
-            table += "<tr><td>" + cutDateTime(time) + "</td><td>" + opinionValue.toString() + "</td><td>" + opinion.toString() + "</td></tr>";
+            table += "<tr><td>" + date + "</td><td>" + opinionValue.toString() + "</td><td>" + opinion.toString() + "</td></tr>";
         }
         table += "</table>";
         return table;
@@ -42,10 +43,6 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
             }
         }
         return out;
-    }
-
-    String cutDateTime(ZonedDateTime zdt) {
-        return zdt.toLocalDateTime().toString().split("\\.")[0].replace("-", "/").replace("T", " ");
     }
 
     @Override
@@ -88,7 +85,7 @@ class HTMLAnalysisAdapter implements HTMLSupport<RatedPostSnapshotSupport> {
         text.append(String.format("<h3> <u>Snapshot</u> from %s</h3>" +
                         "<h4>The post evaluated as: %s</h4>" +
                         "<p><strong>Comments: </strong></p>"
-                , cutDateTime(postSnapshot.getCreationDate()), postSnapshot.getOpinion()));
+                , postSnapshot.getCreationDate(), postSnapshot.getOpinion()));
         for (Comment comment : postSnapshot.getComments())
             text.append(String.format("<p style = \"margin-left: 50px;\"><strong>%s</strong> on" +
                             " <strong>%s</strong>: %s<p>", comment.author,
