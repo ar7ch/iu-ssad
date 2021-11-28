@@ -116,7 +116,11 @@ class RatedPostSnapshotSupport { //Caretaker class
 
     public void undoSnapshot(UUID idx) {
         ArrayList<RatedPostSnapshot> postHistory = this.postsWithHistory.get(idx);
-        this.posts.get(idx).restoreState(postHistory.get(postHistory.size() - 1));
+        if (postHistory.size() == 0) {
+            System.out.println("Empty stack");
+            return;
+        }
+        this.posts.get(idx).restoreState(postHistory.remove(postHistory.size() - 1));
     }
 
     public String saveToJson() {
