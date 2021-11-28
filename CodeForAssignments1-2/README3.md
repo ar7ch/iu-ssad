@@ -21,8 +21,9 @@ Recently, a customer of the opinion mining system representing a well-known adve
 They asked for a possibility to see how people's opinions on a topic have changed over time.
 So with this data, they can build the right advertising strategy and get more profit.
 
-As our system already had the feature to generate reports on mined opinions, we decided to expand this notion with the usage of snapshots. Those snapshots represent the state of people's opinion on some topic at some moment in time.
-While implementing the feature, our team met a challenge - the opinion mining system could not save states of the mined opinions straightaway.
+As our system already had the feature to generate reports on mined opinions, we decided to expand this notion with the usage of snapshots. Those snapshots represent the state of people's opinion on some topic at some moment in time.  
+
+While implementing the new feature, our team met a challenge - the opinion mining system could not save states of the mined opinions straightaway.
 
 Hence, we applied **the Memento pattern** that allows our system to save the state of the mined opinion, and restore data from that state. Therefore, our clients can see the dynamics of mined opinions over time.
 
