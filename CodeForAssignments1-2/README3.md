@@ -26,6 +26,9 @@ While implementing the feature, our team met a challenge - the opinion mining sy
 
 Hence, we applied **the Memento pattern** that allows our system to save the state of the mined opinion, and restore data from that state. Therefore, our clients are able to see the dynamics of mined opinions over time.
 
+## Example of the HTMLReport
+~~~~
+
 ## How did we implement the Memento pattern?
 
 ![assignment2UML](ps://user-images.githubusercontent.com/37394070/140531284-c97d1c79-52a0-483c-b600-a953770ffdde.png)
@@ -35,13 +38,19 @@ New and updated entities are grayed out. The full class diagram is attached to t
 HTMLAnalysisAdapter has a reference to RatedPostSnapshotSupport which is a caretaker of memento and keeps the history of snapshots. The system loads snapshots of mined opinions of different time moments from that history, formats them in a human-readable way, and outputs them to HTML.
 ## Description of UML Diagram entities
 
-**Web Browser** - is an external client of the system.
+Below is the description of the most important classes for the implementation of the Memento pattern. 
 
-**HTMLSupport** - is an interface to work with HTML files.
+**RatedPostSnapshot** - is an implementation for the Memento class, it stores the state of an evaluated post.  
 
-**HTMLAnalysisAdapter** - is the class implementing the adapter pattern.
+**RatedPost** - is an originator class for RatedPostSnapshot, it produces the snapshots and may restore state from one of them. Moreover, it extends the Post class keeping the evaluated value.  
+
+**RatedPostSnapshotSupport** - is a caretaker class, it keeps the history of the snapshots.  
 
 **Pair<L, R>** - is an auxiliary class for convenient data transfer.
+
+**Web Browser** - is an external client of the system.
+
+**HTMLAnalysisAdapter** - is the class that proceeds system data into human-readable HTML page format. 
 
 **AnalysisSystem** - is the main entity of our project that implements the technical task of the customer.  
   
