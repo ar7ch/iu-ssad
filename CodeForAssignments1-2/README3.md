@@ -16,6 +16,7 @@ As it was before, the evaluation works in the following way:
 
 
 New use cases are grayed out.
+### Why it was required  
 
 Recently, a customer of the opinion mining system representing a well-known advertising company came to our team.
 They asked for a possibility to see how people's opinions on a topic have changed over time.
@@ -30,13 +31,14 @@ Hence, we applied **the Memento pattern**. This pattern allows our system to sav
 ## Example of an HTMLReport
 The picture below is the part of a generated report that uses our implementation of the Memento pattern. This report shows the dynamics of the mined opinions. Our customers are fully satisfied with this output of our system since it allows them to track people's opinions on actual trends.  
 The data for this report is fully fictional. We respect the privacy of our clients and do not reveal real information. 
-![ReportExample](https://github.com/ar7ch/iu-ssad/blob/master/assignment3/NewReport.png?raw=true)
-
+![ReportExample](https://github.com/ar7ch/iu-ssad/blob/master/assignment3/NewReport.png?raw=true)  
+  
+  
 ## How did we implement the Memento pattern?
 
-![assignment2UML](ps://user-images.githubusercontent.com/37394070/140531284-c97d1c79-52a0-483c-b600-a953770ffdde.png)
+![assignment3UML](https://github.com/ar7ch/iu-ssad/blob/master/assignment3/uml/PartOfClassUML.png?raw=true)
 
-New and updated entities are grayed out. The full class diagram is attached to the submission in .png format.
+New entities are grayed out. The full class diagram is attached to the submission in .png format.
 
 HTMLAnalysisAdapter has a reference to RatedPostSnapshotSupport which is a caretaker of memento and keeps the history of snapshots. The system loads snapshots of mined opinions of different time moments from that history, formats them in a human-readable way, and outputs them to HTML.
 ## Description of UML Diagram entities
@@ -49,15 +51,13 @@ Below is the description of the most important classes for the implementation of
 
 **RatedPostSnapshotSupport** - is a caretaker class, it keeps the history of the snapshots.  
 
-**Pair<L, R>** - is an auxiliary class for convenient data transfer.
-
-**Web Browser** - is an external client of the system.
+**Pair<L, R>** - is an auxiliary class for convenient data transfer.  
 
 **HTMLAnalysisAdapter** - is the class that proceeds system data into human-readable HTML page format. 
 
 **AnalysisSystem** - is the main entity of our project that implements the technical task of the customer.  
-  
-  <br>
+
+You can look at the last two classes in the full diagram attached. It was important to mention them since they are essential for our system. 
 
 ## Code
 
